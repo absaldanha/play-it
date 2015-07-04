@@ -1,15 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
+ruby '2.2.2'
 
-gem 'rdoc', '~> 4.2.0'
-
-group :development do
-	gem 'kmeans', '~> 0.1.1'
-end
+gem 'yard', '~> 0.8.7.6'
+gem 'kmeans', '~> 0.1.1'
 
 group :test do
-	gem 'rspec', '~> 3.3.0'
-	gem 'codeclimate-test-reporter', '~> 0.4.7'
-	gem 'rubocop', '~> 0.32.1'
+  gem 'rspec', '~> 3.3.0'
+  gem 'simplecov', '~> 0.10.0'
+  gem 'rubocop', '~> 0.32.1'
 end

@@ -1,26 +1,54 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/alexandre/Documentos/play-it/spec/models/music_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        4,
+        4,
+        null,
+        3,
+        3,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
       "/home/alexandre/Documentos/play-it/models/music.rb": [
         null,
         null,
-        null,
-        1,
-        null,
-        1,
         1,
         null,
         null,
+        1,
+        null,
         null,
         null,
         1,
-        0,
-        0,
         null,
+        null,
+        null,
+        1,
+        4,
+        4,
         null,
         null
       ]
     },
-    "timestamp": 1436044901
+    "timestamp": 1436051160
   }
 }
