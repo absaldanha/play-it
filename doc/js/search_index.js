@@ -1,0 +1,1 @@
+var search_data = {"index":{"searchIndex":["music","new()"],"longSearchIndex":["music","music::new()"],"info":[["Music","","Music.html","","<p>Class that represents a music\n"],["new","Music","Music.html#method-c-new","(path, features = nil)","<p>Creates a new music object with the given <code>path</code> and\n<code>features</code>\n"]]}}
