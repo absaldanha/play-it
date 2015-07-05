@@ -1,0 +1,15 @@
+svm:
+    compute: false
+
+lowlevel:
+    compute: false
+    stats: ["mean"]
+
+average_loudness:
+    compute: false
+
+rhythm:
+    compute: false
+
+tonal:
+    compute: false

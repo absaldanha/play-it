@@ -4,6 +4,7 @@ ruby '2.2.2'
 
 gem 'yard', '~> 0.8.7.6'
 gem 'kmeans', '~> 0.1.1'
+gem 'cocaine', '~> 0.5.6'
 
 group :test do
   gem 'rspec', '~> 3.3.0'
