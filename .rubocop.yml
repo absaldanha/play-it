@@ -1,0 +1,14 @@
+require: rubocop-rspec
+
+Metrics/MethodLength:
+  Max: 15
+
+EmptyLines:
+  Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*' 

@@ -1,7 +1,6 @@
 require './models/extractor'
 
 describe Extractor do
-
   let!(:root_path) { File.expand_path("#{__FILE__}/../../..") }
 
   let!(:src_path) { "#{root_path}/spec/samples/musics/warriors.mp3" }
@@ -12,9 +11,12 @@ describe Extractor do
 
   let!(:invalid_path) { '/usr/local' }
 
-  let!(:sample_extraction_output) do
+  let!(:sample_extraction_output) {
     File.read('spec/samples/models/extractor_sample_extraction_output.json')
-  end
+  }
+  let!(:sample_output) {
+    JSON.parse(File.read('spec/samples/models/extractor_sample_output.json'))
+  }
 
   subject { described_class.new }
 
@@ -27,7 +29,6 @@ describe Extractor do
   end
 
   describe '#run' do
-
     it 'raises exception when path is invalid' do
       expect {
         subject.send('run', invalid_path)
@@ -40,7 +41,6 @@ describe Extractor do
 
       expect(subject.send('run', src_path)).to eq(sample_extraction_output)
     end
-
   end
 
   it 'parses the output' do
@@ -49,4 +49,10 @@ describe Extractor do
     expect(result.keys).to eq(subject.instance_variable_get('@feature_list'))
   end
 
+  it 'extracts features', :slow do
+    allow_any_instance_of(Tempfile).to receive(:read).
+        and_return(sample_extraction_output)
+
+    expect(subject.extract(src_path)).to eq(sample_output)
+  end
 end

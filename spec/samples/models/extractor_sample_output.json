@@ -1,0 +1,15 @@
+{
+  "average_loudness": 0.977992415428,
+  "dynamic_complexity": 1.23892056942,
+  "beats_count": 406,
+  "bpm": 94.8526916504,
+  "danceability": 1.2305328846,
+  "onset_rate": 3.38962030411,
+  "chords_changes_rate": 0.0500630289316,
+  "chords_number_rate": 0.00234107696451,
+  "key_strength": 0.698926091194,
+  "tuning_diatonic_strength": 0.64267963171,
+  "tuning_equal_tempered_deviation": 0.199770748615,
+  "tuning_frequency": 434.193115234,
+  "tuning_nontempered_energy_ratio": 0.907076776028
+}

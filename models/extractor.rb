@@ -6,28 +6,27 @@ class ExtractionError < StandardError; end
 ##
 # Extracts features from a music file.
 class Extractor
-
   ##
   # List of features to initialize the Extractor.
   FEATURE_LIST = [
-      # lowlevel
-      'average_loudness',
-      'dynamic_complexity',
-      
-      # rhythm
-      'beats_count',
-      'bpm',
-      'danceability',
-      'onset_rate',
+    # lowlevel
+    'average_loudness',
+    'dynamic_complexity',
 
-      # tonal
-      'chords_changes_rate',
-      'chords_number_rate',
-      'key_strength',
-      'tuning_diatonic_strength',
-      'tuning_equal_tempered_deviation',
-      'tuning_frequency',
-      'tuning_nontempered_energy_ratio'
+    # rhythm
+    'beats_count',
+    'bpm',
+    'danceability',
+    'onset_rate',
+
+    # tonal
+    'chords_changes_rate',
+    'chords_number_rate',
+    'key_strength',
+    'tuning_diatonic_strength',
+    'tuning_equal_tempered_deviation',
+    'tuning_frequency',
+    'tuning_nontempered_energy_ratio'
   ]
 
   def initialize
@@ -43,8 +42,8 @@ class Extractor
   #                feature_name => extracted_value
   #
   def extract(path)
-    output = run(path) 
-    
+    output = run(path)
+
     parse(output)
   end
 
@@ -53,7 +52,7 @@ class Extractor
   def run(path)
     Tempfile.open(['tmp', '.json'], 'tmp') do |tmp|
       line = command(path, tmp.path)
-      
+
       begin
         line.run
       rescue => ex
@@ -62,7 +61,7 @@ class Extractor
       end
 
       tmp.rewind
-      tmp.read 
+      tmp.read
     end
   end
 
