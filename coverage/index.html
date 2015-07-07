@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-07-04T20:06:00-03:00">2015-07-04T20:06:00-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-07-07T14:44:45-03:00">2015-07-07T14:44:45-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -51,9 +51,9 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#ffc0d28bfbd0b39de08a03cc5ed35cf936d5ad5c" class="src_link" title="models/music.rb">models/music.rb</a></td>
+        <td class="strong"><a href="#9e34d729bc698fc4a9e11e196c4628d05ccf6bcb" class="src_link" title="models/music.rb">models/music.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>18</td>
+        <td>23</td>
         <td>6</td>
         <td>6</td>
         <td>0</td>
@@ -61,7 +61,7 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#53d563ace99e014c693d0e702fd14f7ba7895fc3" class="src_link" title="spec/models/music_spec.rb">spec/models/music_spec.rb</a></td>
+        <td class="strong"><a href="#a5b61e8e364d4228efe71648a5cea2b2ebd2c4b8" class="src_link" title="spec/models/music_spec.rb">spec/models/music_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>25</td>
         <td>15</td>
@@ -86,7 +86,7 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="ffc0d28bfbd0b39de08a03cc5ed35cf936d5ad5c">
+        <div class="source_table" id="9e34d729bc698fc4a9e11e196c4628d05ccf6bcb">
   <div class="header">
     <h3>models/music.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
@@ -178,31 +178,61 @@
           <code class="ruby">  # Creates a new music object with the given +path+ and +features+</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="14">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="14">
           
-          <code class="ruby">  def initialize(path, features = nil)</code>
+          
+          <code class="ruby">  #</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="15">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="15">
           
-          <code class="ruby">    @path = path</code>
+          
+          <code class="ruby">  # @param path [String] the path to the music in the OS</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="16">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="16">
           
-          <code class="ruby">    @features = features || {}</code>
+          
+          <code class="ruby">  # @param features [Hash] the set of features of the music</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  #</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">  # @return [Music] the object representing the music</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(path, features = nil)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="20">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @path = path</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="21">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    @features = features || {}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">end</code>
@@ -212,7 +242,7 @@
   </pre>
 </div>
       
-        <div class="source_table" id="53d563ace99e014c693d0e702fd14f7ba7895fc3">
+        <div class="source_table" id="a5b61e8e364d4228efe71648a5cea2b2ebd2c4b8">
   <div class="header">
     <h3>spec/models/music_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>

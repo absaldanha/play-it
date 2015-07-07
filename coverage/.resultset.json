@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/alexandre/Documentos/play-it/spec/models/music_spec.rb": [
+      "/home/asaldanha/Documentos/play-it/spec/models/music_spec.rb": [
         1,
         null,
         1,
@@ -28,7 +28,7 @@
         null,
         null
       ],
-      "/home/alexandre/Documentos/play-it/models/music.rb": [
+      "/home/asaldanha/Documentos/play-it/models/music.rb": [
         null,
         null,
         1,
@@ -39,6 +39,11 @@
         null,
         null,
         1,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -49,6 +54,6 @@
         null
       ]
     },
-    "timestamp": 1436051160
+    "timestamp": 1436291085
   }
 }
