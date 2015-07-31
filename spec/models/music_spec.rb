@@ -1,25 +1,38 @@
-require './models/music'
-
 RSpec.describe Music do
+  describe '#new' do
+    let(:path_example) { '/usr/example.mp3' }
+    let(:features_example) { { foo: 5.4, bar: 2 } }
 
-  let!(:path_example) { '/usr/example.mp3' }
-  let!(:features_example) { {foo: 5.4, bar: 2} }
+    context 'when some features are given' do
+      subject { described_class.new(path_example, features_example) }
 
-  subject(:music_with_features) { Music.new(path_example, features_example) }
-  subject(:music_without_features) { Music.new(path_example) }
+      it 'is an instance of Music' do
+        is_expected.to be_a described_class
+      end
 
-  it 'should be of class Music' do
-    expect(music_without_features.class).to equal(Music)
-    expect(music_with_features.class).to equal(Music)
-  end
+      it 'have the path of the music' do
+        expect(subject.path).to eq(path_example)
+      end
 
-  it 'should have a path and no features' do
-    expect(music_without_features.path).to eq(path_example)
-    expect(music_without_features.features).to be_empty
-  end
+      it 'have the features of the music' do
+        expect(subject.features).to eq(features_example)
+      end
+    end
 
-  it 'should have a path and features' do
-    expect(music_with_features.path).to eq(path_example)
-    expect(music_with_features.features).to eq(features_example)
+    context 'when no features are given' do
+      subject { described_class.new(path_example) }
+
+      it 'is an instance of Music' do
+        expect(subject).to be_a described_class
+      end
+
+      it 'have the path of the music' do
+        expect(subject.path).to eq(path_example)
+      end
+
+      it 'dont have features' do
+        expect(subject.features).to be_empty
+      end
+    end
   end
 end
