@@ -2,13 +2,14 @@
 # Class that represents a library of musics
 class Library
   require_relative 'music'
+  require 'set'
 
   ##
   # Describes the path to the library file
   FILE_PATH = './musics_features.dat'
 
   ##
-  # @return [Array] the library, an array of musics
+  # @return [Set] the library, a set of musics
   attr_accessor :musics
 
   ##
@@ -16,7 +17,7 @@ class Library
   #
   # @return [Library] the object representing the library
   def initialize
-    @musics = []
+    @musics = Set.new
   end
 
   ##
@@ -37,9 +38,9 @@ class Library
   #
   # @param music [Music] the new music that will be added
   #
-  # @return [Nil] if the music already exists in the library or it is not a Music
+  # @return [Nil] if it is not a Music
   def add(music)
-    return nil if @musics.include?(music) || !music.instance_of?(Music)
+    return nil unless music.instance_of?(Music)
     @musics << music
   end
 

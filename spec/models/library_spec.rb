@@ -7,7 +7,7 @@ RSpec.describe Library do
         is_expected.to be_a described_class
       end
 
-      it 'creates an empty array os Musics' do
+      it 'creates an empty set of Musics' do
         expect(library.musics).to be_empty
       end
     end
@@ -84,7 +84,9 @@ RSpec.describe Library do
       before { library.add(music) }
 
       it "doesn't add to the library" do
-        expect(library.add(music)).to be_falsy
+        expect {
+          library.add(music)
+        }.not_to change { library.musics.size }
       end
     end
 
@@ -111,7 +113,7 @@ RSpec.describe Library do
       it 'does nothing' do
         expect {
           library.remove(music.path)
-        }.not_to change{ library.musics.size }
+        }.not_to change { library.musics.size }
       end
     end
   end
