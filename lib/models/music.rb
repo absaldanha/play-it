@@ -1,6 +1,8 @@
 ##
 # Class that represents a music
 class Music
+  include Comparable
+
   ##
   # @return [String] the path to the music in the OS
   attr_accessor :path
@@ -19,5 +21,13 @@ class Music
   def initialize(path, features = nil)
     @path = path
     @features = features || {}
+  end
+
+  ##
+  # Equality - Two musics are equal if they contain the same path
+  #
+  # @return [bool] true if a music is equal another music, false otherwise
+  def ==(other)
+    @path == other.path
   end
 end

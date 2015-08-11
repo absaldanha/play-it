@@ -35,4 +35,22 @@ RSpec.describe Music do
       end
     end
   end
+
+  describe '#==' do
+    let(:a_music) { Music.new('/usr/example.mp3', { foo: 5.2, bar: 3 }) }
+
+    subject { a_music == other_music }
+
+    context 'when two musics are equal' do
+      let(:other_music) { Music.new('/usr/example.mp3', { foo: 4.2, bar: 1 }) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when too musics are not equal' do
+      let(:other_music) { Music.new('/usr/other.mp3', { foo: 4.2, bar: 1 }) }
+
+      it { is_expected.to be_falsy }
+    end
+  end
 end
