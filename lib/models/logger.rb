@@ -20,7 +20,6 @@ class Logger
   #
   # @param event [Hash] the event to be added
   def log(event)
-    return false unless event.is_a? Hash
     @events << event
   end
 end

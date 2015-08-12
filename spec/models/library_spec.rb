@@ -69,7 +69,7 @@ RSpec.describe Library do
   end
 
   describe '#add' do
-    context 'when a valid music is given' do
+    context 'when a new music is given' do
       let(:valid_music) { Music.new('/usr/example.mp3', { foo: 5.2, bar: 3 }) }
 
       it 'adds the music to the library' do
@@ -87,12 +87,6 @@ RSpec.describe Library do
         expect {
           library.add(music)
         }.not_to change { library.musics.size }
-      end
-    end
-
-    context 'when it is not a music' do
-      it "doesn't add to the library" do
-        expect(library.add('something')).to be_falsy
       end
     end
   end

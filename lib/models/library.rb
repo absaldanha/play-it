@@ -1,9 +1,9 @@
+require_relative 'music'
+require 'set'
+
 ##
 # Class that represents a library of musics
 class Library
-  require_relative 'music'
-  require 'set'
-
   ##
   # Describes the path to the library file
   FILE_PATH = './musics_features.dat'
@@ -37,10 +37,7 @@ class Library
   # Adds a new music to the library
   #
   # @param music [Music] the new music that will be added
-  #
-  # @return [Nil] if it is not a Music
   def add(music)
-    return nil unless music.instance_of?(Music)
     @musics << music
   end
 
