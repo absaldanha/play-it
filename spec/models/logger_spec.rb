@@ -8,7 +8,7 @@ RSpec.describe Logger do
       end
 
       it 'creates an empty array of events' do
-        expect(subject.session_events).to be_empty
+        expect(subject.events).to be_empty
       end
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe Logger do
 
       it 'adds the event to the list of events' do
         logger.log(event)
-        expect(logger.session_events).to include event
+        expect(logger.events).to include event
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Logger do
       }
 
       it 'doesnt add the event to the list of events' do
-        expect(logger.session_events).not_to include event
+        expect(logger.events).not_to include event
       end
     end
   end
