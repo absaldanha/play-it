@@ -3,6 +3,8 @@ module PlayIt
     attr_accessor :music
     attr_reader :dump_path
 
+    ##
+    # Creates a new library of musics
     def initialize
       @music = Set.new
       @dump_path = Config.library_path

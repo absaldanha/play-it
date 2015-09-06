@@ -1,4 +1,8 @@
 require 'set'
+require 'kmeans/pair'
+require 'kmeans/pearson'
+require 'kmeans/cluster'
+require 'play_it/clusterer'
 require 'play_it/config'
 require 'play_it/music'
 require 'play_it/library'
