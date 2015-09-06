@@ -7,7 +7,12 @@ gem 'kmeans-clusterer'
 gem 'rake', '~> 10.4.2'
 gem 'cocaine'
 
-group :test do
+group :development, :production do
+  gem 'gstreamer'
+  gem 'gtk3'
+end
+
+group :development, :test do
   gem 'rspec', '~> 3.3.0'
   gem 'rspec-its'
   gem 'simplecov', '~> 0.10.0'

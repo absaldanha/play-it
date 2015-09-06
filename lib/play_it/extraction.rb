@@ -1,3 +1,6 @@
+require 'cocaine'
+require 'tempfile'
+require 'shellwords'
 require 'play_it/extraction/extractor'
 require 'play_it/extraction/parser'
 

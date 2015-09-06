@@ -32,8 +32,8 @@ module PlayIt
         end
 
         def binary_command(music_path, json_path)
-          profile = PlayIt::Config.profile_path
-          Cocaine::CommandLine.path = PlayIt::Config.command_path
+          profile = PlayIt::Configuration.profile_path
+          Cocaine::CommandLine.path = PlayIt::Configuration.command_path
           Cocaine::CommandLine.new(
             "streaming_extractor_music #{music_path} #{json_path} #{profile}"
           )
