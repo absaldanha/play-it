@@ -3,35 +3,34 @@ require 'play_it/clusterer/cluster_set'
 
 module PlayIt
   module Clusterer
-    ##
-    # Build the clusters with the given +music_set+
-    #
-    # @param music_set [Set] the collection of music to build the clusters
-    #
-    # @return [ClusterSet] the set of clusters
-    #
-    def self.make_clusters(music_set)
-      music = music_set.each_with_object({}) do |msc, hash|
-        hash[msc.path] = msc.features
-      end
+    class << self
+      ##
+      # Build the clusters with the given +music_set+
+      #
+      # @param music_set [Set] the collection of music to build the clusters
+      #
+      # @return [ClusterSet] the set of clusters
+      #
+      def make_clusters(music_set)
+        kmeans = Kmeans::Cluster.new(musics(music_set), loop_max: 20)
+        kmeans.make_cluster
 
-      kmeans = Kmeans::Cluster.new(music, loop_max: 20)
-      kmeans.make_cluster
+        cluster_set = ClusterSet.new
 
-      music_set = music_set.to_a
-
-      cluster_set = ClusterSet.new
-
-      kmeans.cluster.values.each do |cls|
-        cluster = Cluster.new
-        cls.each do |path|
-          cluster.add(music_set.find { |msc|  msc.path == path })
+        kmeans.cluster.values.each do |cls|
+          cluster_set.add(Cluster.new(cls)) unless cls.empty?
         end
 
-        cluster_set.add(cluster)
+        cluster_set
       end
 
-      cluster_set
+      private
+
+      def musics(music_set)
+        music_set.each_with_object({}) do |music, hash|
+          hash[music] = music.features
+        end
+      end
     end
   end
 end
