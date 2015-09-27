@@ -2,6 +2,7 @@ module PlayIt
   module Clusterer
     class Cluster
       attr_reader :music
+      attr_reader :centroid
 
       ##
       # Initializes the new cluster object with the given +music+ or
@@ -9,8 +10,14 @@ module PlayIt
       #
       # @param music [Array] the array of Musics of this cluster.
       #
-      def initialize(music = nil)
-        @music = music || []
+      def initialize(music = nil, centroid = nil)
+        if music
+          @music = music
+          @centroid = centroid
+        else
+          @music = []
+          @centroid = {}
+        end
       end
 
       ##

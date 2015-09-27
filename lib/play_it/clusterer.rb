@@ -16,9 +16,11 @@ module PlayIt
         kmeans.make_cluster
 
         cluster_set = ClusterSet.new
+        centroids = cluster_centroids(kmeans)
 
-        kmeans.cluster.values.each do |cls|
-          cluster_set.add(Cluster.new(cls)) unless cls.empty?
+        kmeans.cluster.values.each_with_index do |cls, i|
+          cluster = Cluster.new(cls, centroids[i])
+          cluster_set.add(cluster) unless cls.empty?
         end
 
         cluster_set
@@ -30,6 +32,10 @@ module PlayIt
         music_set.each_with_object({}) do |music, hash|
           hash[music] = music.features
         end
+      end
+
+      def cluster_centroids(clusters)
+        clusters.instance_variable_get("@centroids")
       end
     end
   end
