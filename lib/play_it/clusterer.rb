@@ -2,6 +2,9 @@ require 'play_it/clusterer/cluster'
 require 'play_it/clusterer/cluster_set'
 
 module PlayIt
+  ##
+  # Module for the clustering procedures.
+  #
   module Clusterer
     class << self
       ##
@@ -12,15 +15,13 @@ module PlayIt
       # @return [ClusterSet] the set of clusters
       #
       def make_clusters(music_set)
-        kmeans = Kmeans::Cluster.new(musics(music_set), loop_max: 20)
-        kmeans.make_cluster
+        kmeans = KMeansClusterer.run 4, data(music_set), labels: labels(music_set)
 
         cluster_set = ClusterSet.new
-        centroids = cluster_centroids(kmeans)
 
-        kmeans.cluster.values.each_with_index do |cls, i|
-          cluster = Cluster.new(cls, centroids[i])
-          cluster_set.add(cluster) unless cls.empty?
+        kmeans.clusters.each do |cls|
+          cluster = Cluster.new(cls.points.map(&:label), cls.centroid.data.to_a)
+          cluster_set.add(cluster) unless cls.points.empty?
         end
 
         cluster_set
@@ -28,14 +29,12 @@ module PlayIt
 
       private
 
-      def musics(music_set)
-        music_set.each_with_object({}) do |music, hash|
-          hash[music] = music.features
-        end
+      def data(music_set)
+        music_set.map { |music| music.features.values }
       end
 
-      def cluster_centroids(clusters)
-        clusters.instance_variable_get("@centroids")
+      def labels(music_set)
+        music_set.map { |music| music }
       end
     end
   end

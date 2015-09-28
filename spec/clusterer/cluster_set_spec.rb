@@ -28,12 +28,12 @@ RSpec.describe PlayIt::Clusterer::ClusterSet do
 
     context 'when a cluster exists at the index' do
       it 'returns the right cluster' do
-        expect(subject.get_cluster(1)).to be_a PlayIt::Clusterer::Cluster
+        expect(subject.cluster(1)).to be_a PlayIt::Clusterer::Cluster
       end
     end
 
     context 'when no cluster exists at the index' do
-      it { expect(subject.get_cluster(2)).to be_falsy }
+      it { expect(subject.cluster(2)).to be_falsy }
     end
   end
 

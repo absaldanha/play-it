@@ -1,5 +1,8 @@
 module PlayIt
   module Clusterer
+    ##
+    # Class that represents a set of clusters
+    #
     class ClusterSet
       attr_reader :clusters
 
@@ -13,7 +16,7 @@ module PlayIt
       ##
       # Adds the new cluster +cluster+ to the set.
       #
-      # @param [Cluster] the new cluster that will be added.
+      # @param cluster [Cluster] the new cluster that will be added.
       #
       def add(cluster)
         fail(ArgumentError) unless cluster.is_a? Cluster
@@ -23,10 +26,10 @@ module PlayIt
       ##
       # Returns the cluster at +index+.
       #
-      # @param [Integer] the index of the cluster.
+      # @param index [Integer] the index of the cluster.
       #
       # @return [Cluster] the cluster of the given +index+ or nil.
-      def get_cluster(index)
+      def cluster(index)
         clusters[index]
       end
 
