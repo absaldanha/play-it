@@ -20,7 +20,7 @@ RSpec.describe PlayIt::Clusterer::ClusterSet do
     end
   end
 
-  describe '#get_cluster' do
+  describe '#cluster' do
     before do
       subject.add(cluster)
       subject.add(another_cluster)
