@@ -1,4 +1,7 @@
 module PlayIt
+  ##
+  # Class to log the events.
+  #
   class Logger
     attr_reader :events
 

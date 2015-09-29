@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 gem 'yard', '~> 0.8.7.6'
-gem 'kmeans', '~> 0.1.1'
+gem 'kmeans-clusterer'
 gem 'rake', '~> 10.4.2'
 
 group :test do

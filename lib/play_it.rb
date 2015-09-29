@@ -1,4 +1,6 @@
 require 'set'
+require 'kmeans-clusterer'
+require 'play_it/clusterer'
 require 'play_it/config'
 require 'play_it/music'
 require 'play_it/library'
