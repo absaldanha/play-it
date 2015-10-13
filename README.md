@@ -10,3 +10,17 @@ Alexandre and Nathalia's final graduation project.
 ### Credits
 
 * Music features extraction: [Essentia](https://github.com/MTG/essentia)
+
+### Dependencies
+
+* GTK+3 (>= 3.6) 
+  
+  ```
+  sudo apt-get install libgtk-3-dev
+  ```
+  
+* GStreamer (>= 1.0)
+  
+  ```
+  sudo apt-get install libgstreamer1.0-dev gstreamer1.0-plugins-base
+  ```
