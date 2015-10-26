@@ -4,7 +4,7 @@ module PlayIt
   #
   class Config
     class << self
-      attr_accessor :library_path, :command_path
+      attr_accessor :library_path, :command_path, :profile_path
 
       def configure
         yield self
