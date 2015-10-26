@@ -1,5 +1,5 @@
-RSpec.describe PlayIt::Extractor::Extract do
-  let(:feature_list) { PlayIt::Extractor::Extract::FEATURE_LIST }
+RSpec.describe PlayIt::Extraction::Extractor do
+  let(:feature_list) { PlayIt::Extraction::Extractor::FEATURE_LIST }
 
   describe '.extract_features' do
     let(:music_path) { File.expand_path("./../../fixtures/sample.mp3", __FILE__) }

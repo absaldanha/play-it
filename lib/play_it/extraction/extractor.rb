@@ -1,6 +1,6 @@
 module PlayIt
-  module Extractor
-    class Extract
+  module Extraction
+    class Extractor
       class ExtractionError < StandardError; end
 
       FEATURE_LIST = [
@@ -44,6 +44,7 @@ module PlayIt
         end
 
         def parse_result(results)
+          puts JSON.parse(results)
           JSON.parse(results).select { |key, _| FEATURE_LIST.include? key }
         end
       end
