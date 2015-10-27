@@ -1,4 +1,5 @@
 require 'play_it/extraction/extractor'
+require 'play_it/extraction/parser'
 
 module PlayIt
   module Extraction

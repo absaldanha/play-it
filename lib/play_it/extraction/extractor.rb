@@ -44,8 +44,7 @@ module PlayIt
         end
 
         def parse_result(results)
-          puts JSON.parse(results)
-          JSON.parse(results).select { |key, _| FEATURE_LIST.include? key }
+          Parser.parse(JSON.parse(results))
         end
       end
     end
