@@ -1,65 +1,45 @@
 module PlayIt
   module Extraction
     class Parser
-      LOWLEVEL_FEATURES = [
-        'average_loudness',
-        'dynamic_complexity',
-        'spectral_centroid',
-        'spectral_rms',
-        'zerocrossingrate',
-        'mfcc'
-      ]
+      LOWLEVEL_FEATURES = %w(average_loudness dynamic_complexity spectral_centroid spectral_rms zerocrossingrate)
 
-      RHYTHM_FEATURES = [
-        'beats_count',
-        'beats_loudness',
-        'bpm',
-        'danceability'
-      ]
+      RHYTHM_FEATURES = %w(beats_count beats_loudness bpm danceability)
 
       class << self
         def parse(data)
-          lowlevel(data['lowlevel']).merge rhythm(data['rhythm'])
+          features = parse_lowlevel(data['lowlevel']).merge parse_rhythm(data['rhythm'])
+          symbolize_keys(features)
         end
 
         private
 
-        def lowlevel(data)
-          {
-            average_loudness: data['average_loudness'],
-            dynamic_complexity: data['dynamic_complexity'],
-            spectral_centroid: data['spectral_centroid']['mean'],
-            zerocrossingrate: data['zerocrossingrate'],
-            spectral_rms: data['spectral_rms']['mean']
-          }.merge mfcc(data['mfcc'])
+        def parse_lowlevel(data)
+          parse_mfcc(data['mfcc']).merge features(data, LOWLEVEL_FEATURES)
         end
 
-        def mfcc(data)
-        {
-          mfcc_0: data[0],
-          mfcc_1: data[1],
-          mfcc_2: data[2],
-          mfcc_3: data[3],
-          mfcc_4: data[4],
-          mfcc_5: data[5],
-          mfcc_6: data[6],
-          mfcc_7: data[7],
-          mfcc_8: data[8],
-          mfcc_9: data[9],
-          mfcc_10: data[10],
-          mfcc_11: data[11],
-          mfcc_12: data[12],
-          mfcc_13: data[13],
-        }
+        def parse_rhythm(data)
+          features(data, RHYTHM_FEATURES)
         end
 
-        def rhythm(data)
-          {
-            beats_count: data['beats_count'],
-            beats_loudness: data['beats_loudness']['mean'],
-            bpm: data['bpm'],
-            danceability: data['danceability']
-          }
+        def parse_mfcc(data)
+          (0..13).each_with_object({}) do |i, hash|
+            hash["mfcc_#{i}"] = data[i]
+          end
+        end
+
+        def features(data, feature_list)
+          data.keep_if { |key, _| feature_list.include? key }
+          data.each_with_object({}) do |(key, value), features|
+            mean_key?(value) ? features[key] = value['mean'] : features[key] = value
+          end
+        end
+
+        def mean_key?(value)
+          value.respond_to?(:key?) && value.key?('mean')
+        end
+
+        def symbolize_keys(hash)
+          Hash[hash.map { |key, value| [key.to_sym, value] }]
         end
       end
     end

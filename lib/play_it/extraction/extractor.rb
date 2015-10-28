@@ -3,10 +3,6 @@ module PlayIt
     class Extractor
       class ExtractionError < StandardError; end
 
-      FEATURE_LIST = [
-        "average_loudness"
-      ]
-
       class << self
         def extract_features(music_path)
           output = run_extraction(music_path)
@@ -26,16 +22,17 @@ module PlayIt
         end
 
         def execute_binary(music_path, json_path)
-          begin
-            binary_command(music_path, json_path).run
-          rescue => e
-            raise ExtractionError, "Failed to execute extraction: #{e.message}"
-          end
+          binary_command(music_path, json_path).run
+        rescue => e
+          raise ExtractionError, "Failed to execute extraction: #{e.message}"
         end
 
         def binary_command(music_path, json_path)
+          profile = PlayIt::Config.profile_path
           Cocaine::CommandLine.path = PlayIt::Config.command_path
-          Cocaine::CommandLine.new "streaming_extractor_music #{music_path} #{json_path} #{PlayIt::Config.profile_path}"
+          Cocaine::CommandLine.new(
+            "streaming_extractor_music #{music_path} #{json_path} #{profile}"
+          )
         end
 
         def read_results(results)

@@ -1,23 +1,25 @@
 RSpec.describe PlayIt::Extraction::Extractor do
-  let(:feature_list) do
-    [
-      :average_loudness, :dynamic_complexity, :spectral_centroid, :spectral_rms, :zerocrossingrate,
-      :mfcc_0, :mfcc_1, :mfcc_2, :mfcc_3, :mfcc_4, :mfcc_5, :mfcc_6, :mfcc_7, :mfcc_8, :mfcc_9,
-      :mfcc_10, :mfcc_11, :mfcc_12, :mfcc_13, :beats_count, :beats_loudness, :bpm, :danceability
-    ]
-  end
-
   describe '.extract_features' do
-    let(:music_path) { File.expand_path("./../../fixtures/sample2.mp3", __FILE__) }
+    context 'when a valid music path is given' do
+      let(:music_path) { File.expand_path('./../../fixtures/sample2.mp3', __FILE__) }
+      let(:parsed_data) { symbolize_keys(load_json_sample('parsed_data.json')) }
 
-    before do
-      allow(PlayIt::Extraction::Parser).to receive(:parse).and_return()
+      before do
+        allow(PlayIt::Extraction::Parser).to receive(:parse).and_return(parsed_data)
+      end
+
+      it 'extracts the features' do
+        expect(described_class.extract_features(music_path)).to include parsed_data
+      end
     end
 
-    it 'extracts the features' do
-      described_class.extract_features(music_path).each do |key, value|
-        expect(feature_list).to include(key)
-        expect(value).to match /\d+\.\d+/
+    context 'when an invalid music path is given' do
+      let(:invalid_music_path) { 'foo/bar.mp3' }
+
+      it 'raises an error' do
+        expect {
+          described_class.extract_features(invalid_music_path)
+        }.to raise_error PlayIt::Extraction::Extractor::ExtractionError
       end
     end
   end
