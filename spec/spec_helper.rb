@@ -6,6 +6,8 @@ require 'rspec/its'
 require 'fakefs/spec_helpers'
 require './lib/play_it.rb'
 
+Dir['./spec/support/*.rb'].each { |file| require file }
+
 RSpec.configure do |config|
   config.include FakeFS::SpecHelpers, fakefs: true
 
@@ -18,4 +20,7 @@ RSpec.configure do |config|
   end
 
   config.default_formatter = 'doc'
+
+  config.include JsonHelper
+  config.include HashHelper
 end
