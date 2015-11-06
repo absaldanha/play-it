@@ -5,7 +5,8 @@ module PlayIt
   class Music
     include Comparable
 
-    attr_reader :path, :features
+    attr_reader :path
+    attr_accessor :features
 
     ##
     # Initializes the new music object with the given +path+ and +features+.
