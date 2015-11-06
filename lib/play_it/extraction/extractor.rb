@@ -5,20 +5,24 @@ module PlayIt
 
       class << self
         def extract_features(music_path)
-          output = run_extraction(music_path)
+          output = run_extraction(escaped_path(music_path))
           parse_result(output)
         end
 
         private
 
-        def run_extraction(music_path)
-          result_file = open_tempfile
-          execute_binary(music_path, result_file.path)
-          read_results(result_file)
+        def escaped_path(path)
+          Shellwords.escape(path)
         end
 
-        def open_tempfile
-          Tempfile.new(['tmp', '.json'], '.')
+        def run_extraction(music_path)
+          tempfile = Tempfile.new(['tmp', '.json'], '.')
+
+          execute_binary(music_path, tempfile.path)
+          read_results(tempfile)
+        ensure
+          tempfile.close
+          tempfile.unlink
         end
 
         def execute_binary(music_path, json_path)

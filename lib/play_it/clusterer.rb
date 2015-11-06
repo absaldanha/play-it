@@ -14,8 +14,8 @@ module PlayIt
       #
       # @return [ClusterSet] the set of clusters
       #
-      def make_clusters(music_set)
-        kmeans = KMeansClusterer.run 4, data(music_set), labels: labels(music_set)
+      def make_clusters(music_set, clusters, runs)
+        kmeans = KMeansClusterer.run clusters, data(music_set), labels: labels(music_set), runs: runs
 
         cluster_set = ClusterSet.new
 

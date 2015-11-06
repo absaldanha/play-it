@@ -14,7 +14,8 @@ module PlayIt
         private
 
         def parse_lowlevel(data)
-          parse_mfcc(data['mfcc']).merge features(data, LOWLEVEL_FEATURES)
+          # require 'pry'; binding.pry
+          parse_mfcc(data['mfcc']['mean']).merge features(data, LOWLEVEL_FEATURES)
         end
 
         def parse_rhythm(data)
@@ -22,7 +23,7 @@ module PlayIt
         end
 
         def parse_mfcc(data)
-          (0..13).each_with_object({}) do |i, hash|
+          (0..12).each_with_object({}) do |i, hash|
             hash["mfcc_#{i}"] = data[i]
           end
         end
