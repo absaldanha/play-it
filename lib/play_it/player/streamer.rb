@@ -1,70 +1,80 @@
 module PlayIt
   module Player
     class Streamer
-      attr_reader :playlist
-      attr_accessor :current_track
+      attr_accessor :current_track, :next_track, :repeat
 
-      def initialize
-        @playbin = Gst::ElementFactory.make 'playbin'
-        @playlist = Dir['*.mp3'].to_enum
+      def initialize(controller)
+        @controller = controller
+        configure_playbin
       end
 
-      def play
-        return unless next_track? && not_playing?
+      ##
+      # Plays the streamer's next_track.
+      #
+      # @param ready [Boolean] true if the streamer is ready (does not need to
+      #                        go back to ready state) or false otherwise.
+      #
+      def play(ready = false)
+        return unless next_track
 
-        self.current_track = playlist.next
-        play_current_track
+        @playbin.ready unless ready
+
+        self.current_track = next_track
+        self.next_track = nil unless repeat
+
+        @playbin.uri = Gst.filename_to_uri(current_track.path)
+        @playbin.play
       end
 
-      def pause
-        @playbin.pause
-      end
-
+      ##
+      # Toggle the state of the streamer between playing and paused.
+      #
       def toggle
         if playing?
-          pause
+          @playbin.pause
         elsif paused?
-          resume
+          @playbin.play
         else
           play
         end
       end
 
+      ##
+      # Set the repeat flag of the streamer. If true, sets the next_track to
+      # the current track.
+      #
+      # @param repeat [Boolean] whether or not to repeat the current track.
+      #
+      def repeat=(repeat)
+        @repeat = repeat
+        self.next_track = current_track if repeat
+      end
+
+      ##
+      # Returns whether the streamer is in the 'playing' state.
+      #
+      # @return [Boolean] true if the streamer is playing, false otherwise.
+      #
       def playing?
-        !not_playing?
+        @playbin.get_state(0)[1] == Gst::State::PLAYING
       end
 
-      def cover_art
-      end
-
-      def tags
-        @playbin.get_audio_tags(0)
+      ##
+      # Returns whether the streamer is in the 'paused' state.
+      #
+      # @return [Boolean] true if the streamer is paused, false otherwise.
+      #
+      def paused?
+        @playbin.get_state(0)[1] == Gst::State::PAUSED
       end
 
       private
 
-      def not_playing?
-        @playbin.get_state(0)[1] != Gst::State::PLAYING
-      end
-
-      def next_track?
-        playlist.peek
-      rescue StopIteration
-        false
-      end
-
-      def play_current_track
-        @playbin.ready
-        @playbin.uri = Gst.filename_to_uri(current_track)
-        @playbin.play
-      end
-
-      def resume
-        @playbin.play
-      end
-
-      def paused?
-        @playbin.get_state(0)[1] == Gst::State::PAUSED
+      def configure_playbin
+        @playbin = Gst::ElementFactory.make 'playbin'
+        @playbin.signal_connect('about-to-finish') do
+          @controller.stream_about_to_finish
+        end
       end
     end
   end
