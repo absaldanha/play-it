@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'play_it/player/streamer'
 require 'play_it/player/view'
 require 'play_it/player/controller'

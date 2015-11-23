@@ -1,5 +1,3 @@
-require 'forwardable'
-
 module PlayIt
   module Player
     class View
@@ -9,7 +7,8 @@ module PlayIt
 
       def_delegators :@controller,
                      :on_play_icon_view_item_activated,
-                     :on_replay_icon_view_item_activated
+                     :on_replay_icon_view_item_activated,
+                     :on_skip_icon_view_item_activated
 
       def initialize(controller)
         @controller = controller
@@ -92,12 +91,17 @@ module PlayIt
         recursive_set_state :normal
       end
 
-      def on_skip_icon_view_item_activated
-        puts 'SKIP'
+      def on_add_icon_view_item_activated
+        file_chooser.run
       end
 
-      def on_add_icon_view_item_activated
-        puts 'ADD'
+      def cancel_file_selection
+        file_chooser.hide
+      end
+
+      def confirm_file_selection
+        file_chooser.hide
+        controller.on_confirm_file_selection(file_chooser.filenames)
       end
 
       def on_add_icon_view_enter_notify_event
