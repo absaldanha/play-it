@@ -2,7 +2,9 @@ RSpec.describe PlayIt::Library do
   describe '#dump_path' do
     let(:path) { 'library.dat' }
 
-    before { expect(PlayIt::Config).to receive(:library_path).and_return(path) }
+    before do
+      allow(PlayIt::Configuration).to receive(:library_path).and_return(path)
+    end
 
     it 'sets path according to configuration' do
       expect(subject.dump_path).to eq path

@@ -1,10 +1,12 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start { refuse_coverage_drop }
 
 require 'rspec'
 require 'rspec/its'
 require 'fakefs/spec_helpers'
-require './lib/play_it.rb'
+
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+require 'play_it'
 
 Dir['./spec/support/*.rb'].each { |file| require file }
 

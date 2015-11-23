@@ -11,7 +11,7 @@ module PlayIt
     #
     def initialize
       @music = Set.new
-      @dump_path = Config.library_path
+      @dump_path = Configuration.library_path
     end
 
     ##

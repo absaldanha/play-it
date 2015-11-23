@@ -1,3 +1,5 @@
+require 'set'
+
 module PlayIt
   ##
   # Class that represents a music.

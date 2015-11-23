@@ -1,0 +1,23 @@
+* {
+    transition-property: color, background-color, background-image, opacity;
+    transition: 250ms ease-in-out;
+}
+
+GtkWindow {
+  background-image: url('assets/images/note.jpg');
+  background-position: center;
+  background-size: contain;
+}
+
+.grid * {
+  opacity: 0;
+  background-color: inherit;
+}
+
+.grid *:active {
+  opacity: 1;
+}
+
+.grid:active {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
