@@ -1,4 +1,3 @@
-require 'cocaine'
 require 'tempfile'
 require 'shellwords'
 require 'play_it/extraction/extractor'

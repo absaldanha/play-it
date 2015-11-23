@@ -12,4 +12,14 @@ module PlayIt
   def self.run
     Player.run
   end
+
+  def self.ci_env?
+    ENV['ENV'] == 'CI'
+  end
 end
+
+unless PlayIt.ci_env?
+  require 'gtk3'
+  require 'gst'
+end
+require 'cocaine'

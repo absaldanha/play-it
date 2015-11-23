@@ -1,5 +1,3 @@
-require 'gtk3'
-require 'gst'
 require 'play_it/player/streamer'
 require 'play_it/player/view'
 require 'play_it/player/controller'
