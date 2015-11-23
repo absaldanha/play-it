@@ -28,6 +28,18 @@ module PlayIt
         @rings.map(&:music).flatten
       end
 
+      ##
+      # Gets the music of the ring with the given +id+
+      # The param +id+ must be between 0 and 2
+      #
+      # @param ring [Integer] the ring to get the music
+      #
+      # @return [Array] the music of the ring
+      #
+      def ring(id)
+        @rings[id].music
+      end
+
       private
 
       def calc_radius(music)
