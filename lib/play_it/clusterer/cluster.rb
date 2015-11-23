@@ -4,27 +4,63 @@ module PlayIt
     # Class that represents a cluster.
     #
     class Cluster
-      attr_reader :music, :centroid
+      attr_reader :radius
 
       ##
       # Initializes the new cluster object with the given +music+ or
       # with an empty array.
       #
       # @param music [Array] the array of Musics of this cluster.
-      # @param centroid [Array] the centroid of the cluster.
       #
-      def initialize(music = nil, centroid = nil)
-        @music = music || []
-        @centroid = centroid || []
+      def initialize(music)
+        @rings = Array.new(3) { Ring.new }
+
+        calc_radius music
+        build_rings music
       end
 
       ##
-      # Adds the music +msc+ to the cluster
+      # Gets the music the cluster contains
       #
-      # @param msc [Music] the new music that will be added.
+      # @return [Array] the music of the cluster
       #
-      def add(msc)
-        @music << msc
+      def music
+        @rings.map(&:music).flatten
+      end
+
+      ##
+      # Gets the music of the ring with the given +id+
+      # The param +id+ must be between 0 and 2
+      #
+      # @param ring [Integer] the ring to get the music
+      #
+      # @return [Array] the music of the ring
+      #
+      def ring(id)
+        @rings[id].music
+      end
+
+      private
+
+      def calc_radius(music)
+        @radius = music.max_by(&:centroid_distance).centroid_distance
+      end
+
+      def build_rings(music)
+        music.each do |msc|
+          ring = right_ring_of msc
+          add_to_ring ring, msc
+        end
+      end
+
+      def right_ring_of(music)
+        return 0 if music.centroid_distance <= @radius / 3
+        return 1 if music.centroid_distance <= 2 * @radius / 3
+        2
+      end
+
+      def add_to_ring(ring, music)
+        @rings[ring] << music.label
       end
     end
   end

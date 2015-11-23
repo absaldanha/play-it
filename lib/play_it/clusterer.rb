@@ -1,6 +1,7 @@
 require 'kmeans-clusterer'
 require 'play_it/clusterer/cluster'
 require 'play_it/clusterer/cluster_set'
+require 'play_it/clusterer/ring'
 
 module PlayIt
   ##
@@ -12,6 +13,8 @@ module PlayIt
       # Build the clusters with the given +music_set+
       #
       # @param music_set [Set] the collection of music to build the clusters
+      # @param clusters [Integer] the number of clusters to generate
+      # @param runs [Integer] the number of times to run (end point)
       #
       # @return [ClusterSet] the set of clusters
       #
@@ -21,8 +24,8 @@ module PlayIt
         cluster_set = ClusterSet.new
 
         kmeans.clusters.each do |cls|
-          cluster = Cluster.new(cls.points.map(&:label), cls.centroid.data.to_a)
-          cluster_set.add(cluster) unless cls.points.empty?
+          cluster = Cluster.new cls.points
+          cluster_set.add cluster unless cls.points.empty?
         end
 
         cluster_set
