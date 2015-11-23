@@ -2,14 +2,14 @@ RSpec.describe PlayIt::Clusterer::Cluster do
   describe '.new' do
     let(:a_music) do
       double(
-        "music_1",
+        'music_1',
         label: 'music1_instance',
         centroid_distance: 2.5
       )
     end
     let(:another_music) do
       double(
-        "music_2",
+        'music_2',
         label: 'music2_instance',
         centroid_distance: 1.2
       )
@@ -25,9 +25,9 @@ RSpec.describe PlayIt::Clusterer::Cluster do
       expect(another_music).to receive(:centroid_distance)
     end
 
-    it 'contains an array of music' do
+    it 'contains music' do
       cluster = described_class.new music
-      expect(cluster.music).to match_array ['music1_instance', 'music2_instance']
+      expect(cluster.music).to match_array %w(music1_instance music2_instance)
     end
 
     it 'calculates the radius of the cluster' do

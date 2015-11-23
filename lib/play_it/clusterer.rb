@@ -1,6 +1,7 @@
 require 'kmeans-clusterer'
 require 'play_it/clusterer/cluster'
 require 'play_it/clusterer/cluster_set'
+require 'play_it/clusterer/ring'
 
 module PlayIt
   ##

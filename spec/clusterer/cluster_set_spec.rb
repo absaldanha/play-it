@@ -1,10 +1,10 @@
 RSpec.describe PlayIt::Clusterer::ClusterSet do
   let(:cluster) do
-    double "cluster1", is_a?: PlayIt::Clusterer::Cluster
+    double 'cluster1', is_a?: PlayIt::Clusterer::Cluster
   end
 
   let(:another_cluster) do
-    double "cluster2", is_a?: PlayIt::Clusterer::Cluster
+    double 'cluster2', is_a?: PlayIt::Clusterer::Cluster
   end
 
   describe '#add' do
