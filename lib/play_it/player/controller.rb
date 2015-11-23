@@ -9,6 +9,8 @@ module PlayIt
 
         @library = PlayIt::Library.new.tap(&:load)
         @recommender = PlayIt::Recommender.new(library)
+
+        PlayIt::Extraction.delegate = self
       end
 
       ##
@@ -50,7 +52,12 @@ module PlayIt
       # Called by the view when files are selected to be added.
       #
       def on_confirm_file_selection(paths)
-        paths.each { |path| library.add PlayIt::Music.new(path) }
+        paths.each do |path|
+          music = PlayIt::Music.new(path)
+          PlayIt::Extraction.push(music) if library.add(music)
+        end
+
+        PlayIt::Extraction.start
       end
 
       ##
@@ -69,6 +76,22 @@ module PlayIt
       def stream_about_to_finish
         streamer.next_track = recommender.recommend unless streamer.repeat
         streamer.play(true)
+      end
+
+      ##
+      # Called by the extractor when the extraction is finished.
+      #
+      def extraction_finished
+        view.revealer.set_reveal_child false
+      end
+
+      ##
+      # Called by the extractor when there is an update in the extraction.
+      #
+      def extraction_queue_size_changed(remaining)
+        pluralizer = (remaining += 1) > 1 ? 's' : ''
+        view.label.text = "Processing #{remaining} song#{pluralizer}"
+        view.revealer.set_reveal_child true
       end
     end
   end

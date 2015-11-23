@@ -23,4 +23,5 @@ unless PlayIt.ci_env?
   require 'gtk3'
   require 'gst'
 end
+require 'json'
 require 'cocaine'

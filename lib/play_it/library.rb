@@ -35,7 +35,7 @@ module PlayIt
     # @param msc [Music] the new music that will be added.
     #
     def add(msc)
-      @music << msc
+      @music << msc unless @music.member?(msc)
     end
 
     ##

@@ -45,7 +45,7 @@ module PlayIt
         end
 
         def parse_result(results)
-          Parser.parse(JSON.parse(results))
+          Parser.parse(::JSON.parse(results))
         end
       end
     end
