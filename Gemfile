@@ -7,7 +7,7 @@ gem 'kmeans-clusterer'
 gem 'rake', '~> 10.4.2'
 gem 'cocaine'
 
-group :development, :production do
+group :ui do
   gem 'gstreamer'
   gem 'gtk3'
 end
