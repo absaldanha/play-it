@@ -4,27 +4,28 @@ module PlayIt
     # Class that represents a cluster.
     #
     class Cluster
-      attr_reader :music, :centroid
+      attr_reader :music, :radius
 
       ##
       # Initializes the new cluster object with the given +music+ or
       # with an empty array.
       #
       # @param music [Array] the array of Musics of this cluster.
-      # @param centroid [Array] the centroid of the cluster.
       #
-      def initialize(music = nil, centroid = nil)
-        @music = music || []
-        @centroid = centroid || []
+      def initialize(music)
+        @music = []
+        @radius = 0
+
+        music.each do |msc|
+          @music << msc.label
+          calc_radius msc.centroid_distance
+        end
       end
 
-      ##
-      # Adds the music +msc+ to the cluster
-      #
-      # @param msc [Music] the new music that will be added.
-      #
-      def add(msc)
-        @music << msc
+      private
+
+      def calc_radius(value)
+        @radius = value if value > @radius
       end
     end
   end

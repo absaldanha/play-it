@@ -1,6 +1,11 @@
 RSpec.describe PlayIt::Clusterer::ClusterSet do
-  let(:cluster) { PlayIt::Clusterer::Cluster.new }
-  let(:another_cluster) { PlayIt::Clusterer::Cluster.new }
+  let(:cluster) do
+    double "cluster1", is_a?: PlayIt::Clusterer::Cluster
+  end
+
+  let(:another_cluster) do
+    double "cluster2", is_a?: PlayIt::Clusterer::Cluster
+  end
 
   describe '#add' do
     context 'when the object is a Cluster' do
@@ -28,7 +33,7 @@ RSpec.describe PlayIt::Clusterer::ClusterSet do
 
     context 'when a cluster exists at the index' do
       it 'returns the right cluster' do
-        expect(subject.cluster(1)).to be_a PlayIt::Clusterer::Cluster
+        expect(subject.cluster(1)).to eq another_cluster
       end
     end
 
