@@ -9,7 +9,6 @@ module PlayIt
       @cluster_set = cluster_set
       @cluster_index = rand cluster_set.size
       @ring = 0
-      @ring_music = update_ring_music
       @played_music = []
       @chance_to_inner_ring = PlayIt::Configuration.inner_ring_chance
       @chance_to_outer_ring = PlayIt::Configuration.outer_ring_chance
@@ -19,8 +18,10 @@ module PlayIt
       change_ring if last_action == :skip
       try_change_ring
 
-      music = ring_music.sample
-      music = ring_music.sample while played? music
+      change_ring while ring_music.empty?
+
+      available_music = ring_music - @played_music.last(10)
+      music = available_music.sample || ring_music.sample
 
       @played_music << music
 
@@ -28,6 +29,10 @@ module PlayIt
     end
 
     private
+
+    def ring_music
+      @ring_music ||= update_ring_music
+    end
 
     def change_ring
       ring < 2 ? change_to_outer_ring : next_cluster
@@ -49,7 +54,8 @@ module PlayIt
     end
 
     def update_ring_music
-      @ring_music = cluster_set[cluster_index].ring ring
+      cluster = cluster_set.cluster(cluster_index)
+      @ring_music = cluster ? cluster.ring(ring) : []
     end
 
     def next_cluster

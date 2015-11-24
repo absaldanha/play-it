@@ -1,9 +1,6 @@
 require 'set'
 
 module PlayIt
-  ##
-  # Class that represents a music.
-  #
   class Music
     include Comparable
 

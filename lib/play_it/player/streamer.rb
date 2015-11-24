@@ -1,7 +1,10 @@
+# :nocov:
+
 module PlayIt
   module Player
     class Streamer
       attr_accessor :current_track, :next_track, :repeat
+      attr_reader :playbin
 
       def initialize(controller)
         @controller = controller
@@ -17,13 +20,13 @@ module PlayIt
       def play(ready = false)
         return unless next_track
 
-        @playbin.ready unless ready
+        playbin.ready unless ready
 
         self.current_track = next_track
         self.next_track = nil unless repeat
 
-        @playbin.uri = Gst.filename_to_uri(current_track.path)
-        @playbin.play
+        playbin.uri = Gst.filename_to_uri(current_track.path)
+        playbin.play
       end
 
       ##
@@ -31,9 +34,9 @@ module PlayIt
       #
       def toggle
         if playing?
-          @playbin.pause
+          playbin.pause
         elsif paused?
-          @playbin.play
+          playbin.play
         else
           play
         end
@@ -56,7 +59,7 @@ module PlayIt
       # @return [Boolean] true if the streamer is playing, false otherwise.
       #
       def playing?
-        @playbin.get_state(0)[1] == Gst::State::PLAYING
+        playbin.get_state(0)[1] == Gst::State::PLAYING
       end
 
       ##
@@ -65,14 +68,14 @@ module PlayIt
       # @return [Boolean] true if the streamer is paused, false otherwise.
       #
       def paused?
-        @playbin.get_state(0)[1] == Gst::State::PAUSED
+        playbin.get_state(0)[1] == Gst::State::PAUSED
       end
 
       private
 
       def configure_playbin
         @playbin = Gst::ElementFactory.make 'playbin'
-        @playbin.signal_connect('about-to-finish') do
+        playbin.signal_connect('about-to-finish') do
           @controller.stream_about_to_finish
         end
       end

@@ -17,4 +17,17 @@ RSpec.describe PlayIt::Clusterer do
         .to be_a PlayIt::Clusterer::ClusterSet
     end
   end
+
+  describe '.load' do
+    let(:cluster_set) { double 'cluster_set', load: true }
+
+    before do
+      expect(PlayIt::Clusterer::ClusterSet).to receive(:new).and_return(cluster_set)
+      expect(cluster_set).to receive(:load)
+    end
+
+    it 'loads the cluster set' do
+      expect(subject.load).to eq cluster_set
+    end
+  end
 end

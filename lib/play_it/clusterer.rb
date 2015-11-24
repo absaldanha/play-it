@@ -4,9 +4,6 @@ require 'play_it/clusterer/cluster_set'
 require 'play_it/clusterer/ring'
 
 module PlayIt
-  ##
-  # Module for the clustering procedures.
-  #
   module Clusterer
     class << self
       ##
@@ -29,6 +26,15 @@ module PlayIt
         end
 
         cluster_set
+      end
+
+      ##
+      # Loads the cluster set from the configured path.
+      #
+      # @return [ClusterSet] the cluster set.
+      #
+      def load
+        ClusterSet.new.tap(&:load)
       end
 
       private
