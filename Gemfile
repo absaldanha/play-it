@@ -6,6 +6,7 @@ gem 'yard', '~> 0.8.7.6'
 gem 'kmeans-clusterer'
 gem 'rake', '~> 10.4.2'
 gem 'cocaine'
+gem 'probability'
 
 group :ui do
   gem 'gstreamer'
