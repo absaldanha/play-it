@@ -15,7 +15,4 @@ PlayIt::Configuration.configure do |config|
   )
 
   config.cluster_set_path = File.expand_path('./../../cluster_set.dat', __FILE__)
-
-  config.k = 4
-  config.clustering_runs = 100
 end

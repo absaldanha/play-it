@@ -10,13 +10,16 @@ module PlayIt
       # Build the clusters with the given +music_set+
       #
       # @param music_set [Set] the collection of music to build the clusters
-      # @param clusters [Integer] the number of clusters to generate
-      # @param runs [Integer] the number of times to run (end point)
       #
       # @return [ClusterSet] the set of clusters
       #
-      def make_clusters(music_set, clusters, runs)
-        kmeans = KMeansClusterer.run clusters, data(music_set), labels: labels(music_set), runs: runs
+      def make_clusters(music_set)
+        kmeans = best_clusters(
+          data(music_set),
+          labels(music_set),
+          max_clusters(music_set),
+          runs(music_set)
+        )
 
         cluster_set = ClusterSet.new
 
@@ -39,12 +42,29 @@ module PlayIt
 
       private
 
+      def best_clusters(data_set, label_set, max, n_runs)
+        runs = 2.upto(max).map do |k|
+          KMeansClusterer.run k, data_set, labels: label_set, runs: n_runs
+        end
+
+        runs.max_by(&:silhouette)
+      end
+
       def data(music_set)
         music_set.map { |music| music.features.values }
       end
 
       def labels(music_set)
         music_set.map { |music| music }
+      end
+
+      def max_clusters(music)
+        max = Math.sqrt(music.size).floor
+        max < 2 ? 2 : max
+      end
+
+      def runs(music)
+        music.size * 100
       end
     end
   end

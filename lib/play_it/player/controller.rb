@@ -113,9 +113,7 @@ module PlayIt
         display_message 'Songs are making friends'
 
         @cluster_set.clusters = PlayIt::Clusterer.make_clusters(
-          library.music,
-          PlayIt::Configuration.k,
-          PlayIt::Configuration.clustering_runs * library.music.size
+          library.music
         ).clusters
 
         hide_message

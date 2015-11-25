@@ -35,7 +35,7 @@ module PlayIt
           delegate.extraction_finished
         end
       end
-      
+
       private
 
       def running?

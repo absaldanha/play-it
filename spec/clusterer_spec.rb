@@ -13,7 +13,7 @@ RSpec.describe PlayIt::Clusterer do
     end
 
     it 'makes the clusters' do
-      expect(described_class.make_clusters(music_set, 1, 10))
+      expect(described_class.make_clusters(music_set))
         .to be_a PlayIt::Clusterer::ClusterSet
     end
   end
