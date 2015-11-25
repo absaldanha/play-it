@@ -4,7 +4,6 @@ module PlayIt
       class ExtractionError < StandardError; end
 
       class << self
-
         ##
         # Extracts features from a song.
         #
