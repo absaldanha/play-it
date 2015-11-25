@@ -1,11 +1,18 @@
 module PlayIt
   module Extraction
     class Parser
-      LOWLEVEL_FEATURES = %w(average_loudness dynamic_complexity spectral_centroid spectral_rms zerocrossingrate)
+      LOWLEVEL_FEATURES = %w(dynamic_complexity spectral_centroid spectral_rms zerocrossingrate)
 
-      RHYTHM_FEATURES = %w(beats_count beats_loudness bpm danceability)
+      RHYTHM_FEATURES = %w(bpm danceability)
 
       class << self
+        ##
+        # Parses the JSON returned from the extraction.
+        #
+        # @param data [String] JSON data.
+        #
+        # @return [Hash] Features hash.
+        #
         def parse(data)
           features = parse_lowlevel(data['lowlevel']).merge parse_rhythm(data['rhythm'])
           symbolize_keys(features)
@@ -14,7 +21,6 @@ module PlayIt
         private
 
         def parse_lowlevel(data)
-          # require 'pry'; binding.pry
           parse_mfcc(data['mfcc']['mean']).merge features(data, LOWLEVEL_FEATURES)
         end
 
@@ -30,6 +36,7 @@ module PlayIt
 
         def features(data, feature_list)
           data.keep_if { |key, _| feature_list.include? key }
+
           data.each_with_object({}) do |(key, value), features|
             mean_key?(value) ? features[key] = value['mean'] : features[key] = value
           end

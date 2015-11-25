@@ -1,3 +1,5 @@
+# :nocov:
+
 module PlayIt
   module Player
     class View
@@ -77,9 +79,9 @@ module PlayIt
         controller.quit
       end
 
-      def recursive_set_state(widget = window, state)
+      def recursive_set_state(state, widget = window)
         widget.set_state_flags state, true
-        widget.each { |child| recursive_set_state(child, state) } if
+        widget.each { |child| recursive_set_state(state, child) } if
           widget.is_a? Gtk::Container
       end
 
@@ -102,10 +104,6 @@ module PlayIt
       def confirm_file_selection
         file_chooser.hide
         controller.on_confirm_file_selection(file_chooser.filenames)
-      end
-
-      def on_add_icon_view_enter_notify_event
-        puts 'ENTER ADD'
       end
 
       def method_missing(meth, *_args)

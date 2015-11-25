@@ -1,5 +1,11 @@
 require 'simplecov'
-SimpleCov.start { refuse_coverage_drop }
+SimpleCov.start do
+  add_filter do |source_file|
+    open(source_file.filename).grep(/:nocov:/).any?
+  end
+
+  refuse_coverage_drop
+end
 
 require 'rspec'
 require 'rspec/its'

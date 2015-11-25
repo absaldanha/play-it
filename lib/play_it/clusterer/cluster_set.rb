@@ -4,13 +4,15 @@ module PlayIt
     # Class that represents a set of clusters
     #
     class ClusterSet
-      attr_reader :clusters
+      attr_accessor :clusters
+      attr_reader :dump_path
 
       ##
-      # Creates a new set of clusters.
+      # Creates a new array of clusters.
       #
       def initialize
         @clusters = []
+        @dump_path = PlayIt::Configuration.cluster_set_path
       end
 
       ##
@@ -29,6 +31,7 @@ module PlayIt
       # @param index [Integer] the index of the cluster.
       #
       # @return [Cluster] the cluster of the given +index+ or nil.
+      #
       def cluster(index)
         clusters[index]
       end
@@ -37,8 +40,25 @@ module PlayIt
       # Returns the number of elements of this cluster set.
       #
       # @return [Integer] the number of elements.
+      #
       def size
         clusters.size
+      end
+
+      ##
+      # Loads the file containing the cluster set into self.
+      # Returns false if the file doesn't exist.
+      #
+      def load
+        return unless File.exist?(dump_path)
+        File.open(dump_path, 'rb') { |file| @clusters = Marshal.load(file.read) }
+      end
+
+      ##
+      # Creates a file containing the current state of the cluster set.
+      #
+      def dump
+        File.open(dump_path, 'wb') { |file| file.write(Marshal.dump(@clusters)) }
       end
     end
   end

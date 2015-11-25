@@ -4,6 +4,14 @@ module PlayIt
       class ExtractionError < StandardError; end
 
       class << self
+
+        ##
+        # Extracts features from a song.
+        #
+        # @param music_path [String] Path of the song in the file system.
+        #
+        # @return [Hash] Features hash.
+        #
         def extract_features(music_path)
           output = run_extraction(escaped_path(music_path))
           parse_result(output)

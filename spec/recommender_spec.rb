@@ -4,7 +4,7 @@ RSpec.describe PlayIt::Recommender do
       double(
         'cluster_set',
         size: 3,
-        :[] => cluster
+        cluster: cluster
       )
     end
 

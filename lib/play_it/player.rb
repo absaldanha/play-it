@@ -1,3 +1,5 @@
+# :nocov:
+
 require 'forwardable'
 require 'play_it/player/streamer'
 require 'play_it/player/view'

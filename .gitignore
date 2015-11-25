@@ -3,3 +3,4 @@ coverage/
 doc/
 .ruby-version
 library.dat
+cluster_set.dat

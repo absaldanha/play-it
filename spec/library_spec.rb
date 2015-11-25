@@ -11,7 +11,7 @@ RSpec.describe PlayIt::Library do
     end
   end
 
-  describe '#load', fakefs: true do
+  describe '#load' do
     context 'when the file exists' do
       let(:loaded_music) do
         [
@@ -31,17 +31,6 @@ RSpec.describe PlayIt::Library do
       it 'loads the music' do
         expect(subject.music).to eq loaded_music
       end
-    end
-
-    context "when the file doesn't exist" do
-      before { subject.load }
-
-      it 'creates an empty file' do
-        expect(File.exist?(subject.dump_path)).to be_truthy
-        expect(File.zero?(subject.dump_path)).to be_truthy
-      end
-
-      its(:music) { are_expected.to be_empty }
     end
   end
 
@@ -106,6 +95,17 @@ RSpec.describe PlayIt::Library do
       it do
         expect { subject.remove(music.path) }.not_to change { subject.music }
       end
+    end
+  end
+
+  describe '#sample' do
+    let(:music1) { double 'music' }
+    let(:music2) { double 'music' }
+
+    before { subject.music = [music1, music2] }
+
+    it 'returns a random music' do
+      expect(subject.sample).to eq(music1).or eq(music2)
     end
   end
 end

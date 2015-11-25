@@ -1,5 +1,4 @@
 {
-  "average_loudness": 1.0,
   "dynamic_complexity": 2.0,
   "spectral_centroid": 3.0,
   "spectral_rms": 4.0,
@@ -17,8 +16,6 @@
   "mfcc_10": 10,
   "mfcc_11": 11,
   "mfcc_12": 12,
-  "beats_count": 111,
-  "beats_loudness": 0.5,
   "bpm": 222,
   "danceability": 5.0
 }

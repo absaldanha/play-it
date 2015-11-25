@@ -88,7 +88,7 @@
     <property name="window_position">mouse</property>
     <property name="default_width">300</property>
     <property name="default_height">300</property>
-    <property name="icon_name">applications-development</property>
+    <property name="icon">../../../../assets/images/icon.png</property>
     <signal name="delete-event" handler="quit" swapped="no"/>
     <signal name="enter-notify-event" handler="on_window_enter_notify_event" swapped="no"/>
     <signal name="leave-notify-event" handler="on_window_leave_notify_event" swapped="no"/>
@@ -101,28 +101,26 @@
         <property name="row_homogeneous">True</property>
         <property name="column_homogeneous">True</property>
         <child>
-          <object class="GtkEventBox" id="play_icon_view_event_box">
-            <property name="width_request">100</property>
-            <property name="height_request">100</property>
+          <object class="GtkEventBox" id="replay_icon_view_event_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <signal name="enter-notify-event" handler="on_window_enter_notify_event" swapped="no"/>
             <child>
-              <object class="GtkIconView" id="play_icon_view">
-                <property name="name">play_icon_view</property>
+              <object class="GtkIconView" id="replay_icon_view">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="margin">0</property>
+                <property name="selection_mode">none</property>
                 <property name="item_orientation">horizontal</property>
-                <property name="model">play_list_store</property>
+                <property name="model">disabled_replay_list_store</property>
+                <property name="columns">1</property>
                 <property name="item_width">0</property>
                 <property name="row_spacing">0</property>
                 <property name="column_spacing">0</property>
-                <property name="item_padding">8</property>
                 <property name="activate_on_single_click">True</property>
-                <signal name="item-activated" handler="on_play_icon_view_item_activated" swapped="no"/>
+                <signal name="item-activated" handler="on_replay_icon_view_item_activated" swapped="no"/>
                 <style>
                   <class name="icon_view"/>
                 </style>
@@ -130,7 +128,7 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">1</property>
+            <property name="left_attach">0</property>
             <property name="top_attach">1</property>
           </packing>
         </child>
@@ -156,7 +154,6 @@
                 <property name="column_spacing">0</property>
                 <property name="item_padding">4</property>
                 <property name="activate_on_single_click">True</property>
-                <signal name="enter-notify-event" handler="on_add_icon_view_enter_notify_event" swapped="no"/>
                 <signal name="item-activated" handler="on_add_icon_view_item_activated" swapped="no"/>
                 <style>
                   <class name="icon_view"/>
@@ -201,26 +198,28 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEventBox" id="replay_icon_view_event_box">
+          <object class="GtkEventBox" id="play_icon_view_event_box">
+            <property name="width_request">100</property>
+            <property name="height_request">100</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <signal name="enter-notify-event" handler="on_window_enter_notify_event" swapped="no"/>
             <child>
-              <object class="GtkIconView" id="replay_icon_view">
+              <object class="GtkIconView" id="play_icon_view">
+                <property name="name">play_icon_view</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="margin">0</property>
-                <property name="selection_mode">none</property>
                 <property name="item_orientation">horizontal</property>
-                <property name="model">disabled_replay_list_store</property>
-                <property name="columns">1</property>
+                <property name="model">play_list_store</property>
                 <property name="item_width">0</property>
                 <property name="row_spacing">0</property>
                 <property name="column_spacing">0</property>
+                <property name="item_padding">8</property>
                 <property name="activate_on_single_click">True</property>
-                <signal name="item-activated" handler="on_replay_icon_view_item_activated" swapped="no"/>
+                <signal name="item-activated" handler="on_play_icon_view_item_activated" swapped="no"/>
                 <style>
                   <class name="icon_view"/>
                 </style>
@@ -228,29 +227,36 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">0</property>
+            <property name="left_attach">1</property>
             <property name="top_attach">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkRevealer" id="revealer">
-            <property name="name">revealer</property>
+          <object class="GtkEventBox" id="revealer_event_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="transition_type">crossfade</property>
-            <property name="reveal_child">True</property>
+            <signal name="enter-notify-event" handler="on_window_enter_notify_event" swapped="no"/>
             <child>
-              <object class="GtkLabel" id="label">
-                <property name="name">label</property>
+              <object class="GtkRevealer" id="revealer">
+                <property name="name">revealer</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="justify">center</property>
-                <property name="wrap">True</property>
-                <property name="ellipsize">end</property>
-                <property name="max_width_chars">20</property>
-                <attributes>
-                  <attribute name="foreground" value="#ffffffffffff"/>
-                </attributes>
+                <property name="transition_type">crossfade</property>
+                <property name="reveal_child">True</property>
+                <child>
+                  <object class="GtkLabel" id="label">
+                    <property name="name">label</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="ellipsize">end</property>
+                    <property name="max_width_chars">20</property>
+                    <attributes>
+                      <attribute name="foreground" value="#ffffffffffff"/>
+                    </attributes>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -285,7 +291,7 @@
     <property name="transient_for">window</property>
     <property name="attached_to">add_icon_view</property>
     <property name="has_resize_grip">True</property>
-    <property name="filter">file_filter</property>
+    <property name="action">select-folder</property>
     <property name="preview_widget_active">False</property>
     <property name="select_multiple">True</property>
     <property name="use_preview_label">False</property>

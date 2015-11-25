@@ -1,7 +1,4 @@
 module PlayIt
-  ##
-  # Class that represents a set of the music, the library of the user.
-  #
   class Library
     attr_accessor :music
     attr_reader :dump_path
@@ -18,7 +15,7 @@ module PlayIt
     # Loads the file containing the saved library.
     #
     def load
-      return File.new(dump_path, 'wb') unless File.exist?(dump_path)
+      return unless File.exist?(dump_path)
       File.open(dump_path, 'rb') { |file| @music = Marshal.load(file.read) }
     end
 
@@ -45,6 +42,15 @@ module PlayIt
     #
     def remove(path)
       @music.delete_if { |msc| msc.path == path }
+    end
+
+    ##
+    # Get a sample song.
+    #
+    # @return [Music] A random song.
+    #
+    def sample
+      music.to_a.sample
     end
   end
 end
