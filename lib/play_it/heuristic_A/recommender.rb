@@ -5,13 +5,14 @@ module PlayIt
 
       def initialize(music_set, music_seed)
         @list = []
+        @next_index = 0
         build_list(music_set, music_seed)
 
         order_list
       end
 
       def recommend
-
+        @list[index]
       end
 
       private
@@ -36,6 +37,13 @@ module PlayIt
       def order_list
         @list.sort_by!(&:distance_to_seed)
         @list = @list.map { |msc| msc.music }
+      end
+
+      def index
+        @next_index += 1
+        @next_index = 0 if @next_index > @list.size - 1
+
+        @next_index
       end
     end
   end
