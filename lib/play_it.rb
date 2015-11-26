@@ -6,6 +6,7 @@ require 'play_it/library'
 require 'play_it/extraction'
 require 'play_it/logger'
 require 'play_it/recommender'
+require 'play_it/heuristic_A'
 
 require_relative File.expand_path('./../../config/config.rb', __FILE__)
 
