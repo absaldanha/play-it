@@ -17,8 +17,7 @@ module PlayIt
         kmeans = best_clusters(
           data(music_set),
           labels(music_set),
-          max_clusters(music_set),
-          runs(music_set)
+          max_clusters(music_set)
         )
 
         cluster_set = ClusterSet.new
@@ -42,12 +41,12 @@ module PlayIt
 
       private
 
-      def best_clusters(data_set, label_set, max, n_runs)
+      def best_clusters(data_set, label_set, max)
         runs = 2.upto(max).map do |k|
-          KMeansClusterer.run k, data_set, labels: label_set, runs: n_runs
+          KMeansClusterer.run k, data_set, labels: label_set, runs: 30
         end
 
-        runs.max_by(&:silhouette)
+        runs.min_by(&:error)
       end
 
       def data(music_set)
@@ -61,10 +60,6 @@ module PlayIt
       def max_clusters(music)
         max = Math.sqrt(music.size).floor
         max < 2 ? 2 : max
-      end
-
-      def runs(music)
-        music.size * 100
       end
     end
   end
