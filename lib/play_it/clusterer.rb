@@ -22,7 +22,7 @@ module PlayIt
 
         cluster_set = ClusterSet.new
 
-        kmeans.clusters.each do |cls|
+        kmeans.sorted_clusters.each do |cls|
           cluster = Cluster.new cls.points
           cluster_set.add cluster unless cls.points.empty?
         end

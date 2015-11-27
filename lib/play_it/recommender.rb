@@ -12,18 +12,25 @@ module PlayIt
       @played_music = []
       @chance_to_inner_ring = PlayIt::Configuration.inner_ring_chance
       @chance_to_outer_ring = PlayIt::Configuration.outer_ring_chance
+      @actions = []
     end
 
     def recommend(last_action)
-      change_ring if last_action == :skip
+      @actions << last_action
+
+      change_ring if @actions.last(2) == [:skip, :skip]
       try_change_ring
 
-      change_ring while ring_music.empty?
-
-      available_music = ring_music - @played_music.last(10)
-      music = available_music.sample || ring_music.sample
+      available_music = ring_music - @played_music
+      while available_music.empty?
+        change_ring
+        available_music = ring_music - @played_music
+      end
+      music = available_music.sample
 
       @played_music << music
+
+      puts music.path
 
       music
     end
@@ -62,7 +69,7 @@ module PlayIt
       @cluster_index += 1
       @cluster_index = 0 if @cluster_index > cluster_set.size - 1
 
-      @ring = 0
+      @ring = 2
 
       update_ring_music
     end
